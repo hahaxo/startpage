@@ -10,7 +10,7 @@ jobs:
       - name: Deploy to Linode
         uses: garygrossgarten/github-action-scp@release # 使用 scp 工具将静态页面远程复制到 ECS
         with:
-          local: ${{ github.repository }} # 待复制的本地文件路径
+          local: ./ # 待复制的本地文件路径
           remote: /var/www/appd.top/public/startpage # ECS 路径
           host: ${{ secrets.HOST }} # ECS 域名 或 IP 地址
           username: ${{ secrets.SSH_USERNAME }} # 登录用户名

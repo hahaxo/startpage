@@ -1,0 +1,18 @@
+name: Deploy to linode
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout codes'
+      uses: actions/checkout@v4
+# 将静态页面部署至 ECS
+    - name: Deploy to Linode
+      uses: garygrossgarten/github-action-scp@release # 使用 scp 工具将静态页面远程复制到 ECS
+      with:
+        local: $GITHUB_WORKSPACE                                 # 待复制的本地文件路径
+        remote: /var/www/appd.top/public/startpage    # ECS 路径
+        host: ${{ secrets.HOST }}                     # ECS 域名 或 IP 地址
+        username: ${{ secrets.SSH_USERNAME }}         # 登录用户名
+        password: ${{ secrets.SSH_PASSWORD }}         # 登录密码
+        port: ${{ secrets.SSH_PORT }}                 # scp 端口号（默认 22）

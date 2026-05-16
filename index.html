@@ -131,7 +131,7 @@
 
     <script>
       const bookmarks = [
-        { name: 'v2ex', url: 'https://v2ex.com', color: '#333333', icon: 'https://www.v2ex.com/static/icon-192.png' },
+        { key: 'v',name: 'v2ex', url: 'https://v2ex.com', color: '#333333', icon: 'https://www.v2ex.com/static/icon-192.png' },
         { name: 'newshacker', url: 'https://newshacker.me', color: '#ff6600', icon: '>' },
         { name: 'hn-daily', url: 'https://www.daemonology.net/hn-daily', color: '#ff6347', icon: 'HN' },
         { name: 'poche', url: 'https://poche.app/explore', color: '#F9AC42', icon: 'Poche' },
@@ -144,12 +144,14 @@
         },
         { name: 'juejin', url: 'https://juejin.cn', color: '#1e80ff', icon: '掘金' },
         {
+          key: 'h',
           name: 'xiaohongshu',
           url: 'https://www.xiaohongshu.com',
           color: '#ff2442',
           icon: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/53/be/08/53be0832-e6e2-b45e-e970-778483714523/Placeholder.mill/400x400bb-75.webp',
         },
         {
+          key: 'b',
           name: 'bilibili',
           url: 'https://www.bilibili.com',
           color: '#fb7299',
@@ -163,7 +165,7 @@
           icon: 'https://decohack.com/wp-content/uploads/2024/08/logo_512-150x150.png',
         },
         
-        { name: 'Gmail', url: 'https://gmail.com', color: '#2d3748', icon: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/3e/d6/f6/3ed6f6c9-058a-83d9-1823-bb92f1503fec/Placeholder.mill/400x400bb-75.webp' },
+        { key: 'g',name: 'Gmail', url: 'https://gmail.com', color: '#2d3748', icon: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/3e/d6/f6/3ed6f6c9-058a-83d9-1823-bb92f1503fec/Placeholder.mill/400x400bb-75.webp' },
         { name: 'MW', url: 'https://www.merriam-webster.com/', color: '#2d3748', icon: 'https://www.merriam-webster.com/apple-touch-icon.png' },
         { name: 'MDN', url: 'https://developer.mozilla.org/zh-CN/', color: '#2d3748', icon: 'https://developer.mozilla.org/favicon.svg' },
 
@@ -177,7 +179,7 @@
         { name: 'perplexity', url: 'https://perplexity.com', color: '#ff4757', icon: 'https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/e0/ef/2a/e0ef2ac2-3e2e-702b-aaf2-dcdbc1f136f9/Placeholder.mill/400x400bb-75.webp' },
         { name: 'Qwen', url: 'https://qianwen.com', color: '#fff', icon: 'https://img.alicdn.com/imgextra/i4/O1CN01uar8u91DHWktnF2fl_!!6000000000191-2-tps-110-110.png' },
         { name: '豆包', url: 'https://doubao.com', color: '#ff4757', icon: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/68/07/d1/6807d1b7-1722-3803-2571-e3399287eef3/AppIcon-0-0-1x_U007epad-0-8-0-sRGB-85-220.png/400x400ia-75.webp' },
-        { name: 'X', url: 'https://x.com', color: '#000000', icon: 'X' },
+        { key: 'x',name: 'X', url: 'https://x.com', color: '#000000', icon: 'X' },
 
       ];
 
@@ -223,6 +225,24 @@
       }
 
       renderBookmarks();
+
+      document.addEventListener('keydown', event => {
+  // 避免在输入框里按键也触发
+  if (
+    event.target.tagName === 'INPUT' ||
+    event.target.tagName === 'TEXTAREA' ||
+    event.target.isContentEditable
+  ) {
+    return;
+  }
+
+  const key = event.key.toLowerCase();
+
+  const bookmark = bookmarks.find(b => b.key?.toLowerCase() === key);
+  if (!bookmark) return;
+
+  window.location.href = bookmark.url;
+});
     </script>
   </body>
 </html>
